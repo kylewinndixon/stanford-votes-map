@@ -83,7 +83,7 @@ L.control.zoom({
 }).addTo(map);
     
 L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    'https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png',
     {
         attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
         maxZoom: 20
@@ -215,11 +215,13 @@ const legend = L.control({ position: 'bottomleft' });
 legend.onAdd = function () {
     const div = L.DomUtil.create('div', 'info legend');
 
-    div.style.background = 'white';
-    div.style.padding = '10px';
-    div.style.borderRadius = '8px';
-    div.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
-    div.style.font = '14px Arial';
+    div.style.background = '#ECE6D6';
+    div.style.padding = '14px';
+    div.style.border = '1px solid #D7CFBE';
+    div.style.borderRadius = '12px';
+    div.style.boxShadow = '0 4px 12px rgba(31,36,48,.12)';
+    div.style.font = '14px Arial, sans-serif';
+    div.style.color = '#1F2430';
 
     div.innerHTML = `
         <b>Legend</b><br><br>
