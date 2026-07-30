@@ -47,6 +47,8 @@
         }
         
     </style>
+
+    <b style="font-family:Avenir;">Legend</b>
    
     <link rel="stylesheet"
         href="css/leaflet.awesome-markers.css">
@@ -83,7 +85,7 @@ L.control.zoom({
 }).addTo(map);
     
 L.tileLayer(
-    'https://{s}.basemaps.cartocdn.com/voyager/{z}/{x}/{y}{r}.png',
+    'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
     {
         attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
         maxZoom: 20
@@ -220,7 +222,8 @@ legend.onAdd = function () {
     div.style.border = '1px solid #D7CFBE';
     div.style.borderRadius = '12px';
     div.style.boxShadow = '0 4px 12px rgba(31,36,48,.12)';
-    div.style.font = '14px Arial, sans-serif';
+    div.style.fontFamily = 'Avenir, "Avenir Next", Helvetica, Arial, sans-serif';
+    div.style.fontSize = '14px';
     div.style.color = '#1F2430';
 
     div.innerHTML = `
