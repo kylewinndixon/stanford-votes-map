@@ -86,43 +86,133 @@ L.tileLayer(
 const redIcon = new L.Icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-
     iconSize: [25,41],
     iconAnchor: [12,41],
     popupAnchor: [1,-34],
     shadowSize: [41,41]
 });
 
+const blueIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize: [25,41],
+    iconAnchor: [12,41],
+    popupAnchor: [1,-34],
+    shadowSize: [41,41]
+});
+
+const greenIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize: [25,41],
+    iconAnchor: [12,41],
+    popupAnchor: [1,-34],
+    shadowSize: [41,41]
+});
+
+const yellowIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+    iconSize: [25,41],
+    iconAnchor: [12,41],
+    popupAnchor: [1,-34],
+    shadowSize: [41,41]
+});
+    const markers = [];
+
+function addMarker(lat, lng, icon, popupHTML) {
+
+    const marker = L.marker([lat, lng], {
+        icon: icon
+    }).addTo(map);
+
+    marker.bindPopup(popupHTML);
+
+    marker.on('mouseover', function () {
+        this.openPopup();
+    });
+
+    marker.on('mouseout', function () {
+        this.closePopup();
+    });
+
+    marker.on('click', function () {
+        this.openPopup();
+    });
+
+    markers.push(marker);
+}
+
 const markers = [];
 
-markers.push(
-    L.marker([37.433425, -122.176911], {icon: redIcon})
-    .addTo(map)
-    .bindPopup("<b>Stanford Hospital</b>")
+addMarker(
+    37.433425,
+    -122.176911,
+    yellowIcon,
+    "<b>Stanford Hospital</b><br>Ballot Box"
 );
 
-markers.push(
-    L.marker([37.435061, -122.155825], {icon: redIcon})
-    .addTo(map)
-    .bindPopup("<b>Palo Alto High School</b>")
+addMarker(
+    37.444369,
+    -122.159922,
+    yellowIcon,
+    "<b>Palo Alto City Hall</b><br>Ballot Box"
 );
 
-markers.push(
-    L.marker([37.444369, -122.159922], {icon: redIcon})
-    .addTo(map)
-    .bindPopup("<b>Palo Alto City Hall</b>")
+addMarker(
+    37.435061,
+    -122.155825,
+    yellowIcon,
+    "<b>Palo Alto High School</b><br>Ballot Box"
 );
 
-markers.push(
-    L.marker([37.445003, -122.138958], {icon: redIcon})
-    .addTo(map)
-    .bindPopup("<b>Rinconada Library</b>")
+addMarker(
+    37.424303,
+    -122.168892,
+    greenIcon,
+    "<b>Stanford Post Office</b><br>Post Office"
 );
 
-markers.push(
-    L.marker([37.422203, -122.112833], {icon: redIcon})
-    .addTo(map)
-    .bindPopup("<b>Mitchell Park Library</b>")
+addMarker(
+    37.445844,
+    -122.159239,
+    greenIcon,
+    "<b>Palo Alto Post Office</b><br>Post Office"
+);
+
+addMarker(
+    37.428647,
+    -122.143928,
+    greenIcon,
+    "<b>California Avenue Post Office</b><br>Post Office"
+);
+
+addMarker(
+    37.429125,
+    -122.169039,
+    blueIcon,
+    "<b>USPS @ The Oval</b><br>USPS Blue Collection Box"
+);
+
+addMarker(
+    37.426492,
+    -122.150878,
+    blueIcon,
+    "<b>USPS @ EVGR</b><br>USPS Blue Collection Box"
+);
+
+addMarker(
+    37.424303,
+    -122.170842,
+    redIcon,
+    "<b>Tresidder Voting Center</b><br>Oak Lounge<br>2nd Floor"
+);
+
+addMarker(
+    37.423453,
+    -122.158500,
+    redIcon,
+    "<b>EVGR Voting Center</b><br>Graduate Student Community Center<br>Havana Room"
 );
 
 const group = L.featureGroup(markers);
