@@ -117,29 +117,35 @@ L.tileLayer(
     }
 ).addTo(map);
 
-const ballotIcon = L.AwesomeMarkers.icon({
-    icon: 'check',
-    prefix: 'fa',
-    markerColor: 'orange'
-});
+function createIcon(color, icon){
 
-const postOfficeIcon = L.AwesomeMarkers.icon({
-    icon: 'envelope',
-    prefix: 'fa',
-    markerColor: 'green'
-});
+    return L.divIcon({
 
-const mailboxIcon = L.AwesomeMarkers.icon({
-    icon: 'envelope',
-    prefix: 'fa',
-    markerColor: 'blue'
-});
+        className: "",
 
-const votingCenterIcon = L.AwesomeMarkers.icon({
-    icon: 'building',
-    prefix: 'fa',
-    markerColor: 'red'
-});
+        html: `
+        <div class="custom-marker" style="background:${color}">
+            <i class="fa-solid ${icon}"></i>
+        </div>
+        `,
+
+        iconSize:[34,34],
+
+        iconAnchor:[17,17],
+
+        popupAnchor:[0,-17]
+
+    });
+
+}
+
+const ballotIcon = createIcon("#E45757","fa-check");
+
+const postOfficeIcon = createIcon("#1F2430","fa-envelope");
+
+const mailboxIcon = createIcon("#A8B8BB","fa-envelope");
+
+const votingCenterIcon = createIcon("#C92535","fa-landmark");
     const markers = [];
 
 function addMarker(lat, lng, icon, popupHTML) {
