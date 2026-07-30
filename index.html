@@ -1,45 +1,105 @@
-<link
-rel="stylesheet"
-href="https://unpkg.com/leaflet/dist/leaflet.css"
-/>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Stanford Votes Map</title>
 
-<style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-html,
-body{
-height:100%;
-margin:0;
-}
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
 
-#map{
-height:100%;
-width:100%;
-}
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
 
-</style>
-
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>
 
 <div id="map"></div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
 
-const map = L.map('map').setView([37.4275,-122.1697],15);
+// Create the map
+const map = L.map('map');
 
+// OpenStreetMap background
 L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{
-maxZoom:19,
-attribution:'© OpenStreetMap contributors'
-}
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
+    }
 ).addTo(map);
+
+// Red marker icon
+const redIcon = new L.Icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+
+    iconSize: [25,41],
+    iconAnchor: [12,41],
+    popupAnchor: [1,-34],
+    shadowSize: [41,41]
+});
+
+// Store markers so Leaflet can zoom to all of them
+const markers = [];
+
+// Stanford Hospital
+markers.push(
+    L.marker([37.433425, -122.176911], {icon: redIcon})
+    .addTo(map)
+    .bindPopup("<b>Stanford Hospital</b>")
+);
+
+// Palo Alto High School
+markers.push(
+    L.marker([37.435061, -122.155825], {icon: redIcon})
+    .addTo(map)
+    .bindPopup("<b>Palo Alto High School</b>")
+);
+
+// Palo Alto City Hall
+markers.push(
+    L.marker([37.444369, -122.159922], {icon: redIcon})
+    .addTo(map)
+    .bindPopup("<b>Palo Alto City Hall</b>")
+);
+
+// Rinconada Library
+markers.push(
+    L.marker([37.445003, -122.138958], {icon: redIcon})
+    .addTo(map)
+    .bindPopup("<b>Rinconada Library</b>")
+);
+
+// Mitchell Park Library
+markers.push(
+    L.marker([37.422203, -122.112833], {icon: redIcon})
+    .addTo(map)
+    .bindPopup("<b>Mitchell Park Library</b>")
+);
+
+// Zoom to include all markers
+const group = L.featureGroup(markers);
+map.fitBounds(group.getBounds(), {
+    padding: [50, 50]
+});
 
 </script>
 
 </body>
-
 </html>
