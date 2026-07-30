@@ -10,7 +10,6 @@
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     />
-
     <style>
         html, body {
             height: 100%;
@@ -48,6 +47,12 @@
         }
         
     </style>
+   
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.4/leaflet.awesome-markers.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 
 <body>
@@ -63,6 +68,8 @@
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.awesome-markers/2.0.4/leaflet.awesome-markers.js"></script>
 
 <script>
 
@@ -83,40 +90,28 @@ L.tileLayer(
     }
 ).addTo(map);
 
-const redIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-    iconSize: [25,41],
-    iconAnchor: [12,41],
-    popupAnchor: [1,-34],
-    shadowSize: [41,41]
+const ballotIcon = L.AwesomeMarkers.icon({
+    icon: 'check',
+    prefix: 'fa',
+    markerColor: 'orange'
 });
 
-const blueIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-    iconSize: [25,41],
-    iconAnchor: [12,41],
-    popupAnchor: [1,-34],
-    shadowSize: [41,41]
+const postOfficeIcon = L.AwesomeMarkers.icon({
+    icon: 'envelope',
+    prefix: 'fa',
+    markerColor: 'green'
 });
 
-const greenIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-    iconSize: [25,41],
-    iconAnchor: [12,41],
-    popupAnchor: [1,-34],
-    shadowSize: [41,41]
+const mailboxIcon = L.AwesomeMarkers.icon({
+    icon: 'mailbox',
+    prefix: 'fa',
+    markerColor: 'blue'
 });
 
-const yellowIcon = new L.Icon({
-    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-    iconSize: [25,41],
-    iconAnchor: [12,41],
-    popupAnchor: [1,-34],
-    shadowSize: [41,41]
+const votingCenterIcon = L.AwesomeMarkers.icon({
+    icon: 'building',
+    prefix: 'fa',
+    markerColor: 'red'
 });
     const markers = [];
 
@@ -146,74 +141,99 @@ function addMarker(lat, lng, icon, popupHTML) {
 addMarker(
     37.433425,
     -122.176911,
-    yellowIcon,
+    ballotIcon,
     "<b>Stanford Hospital</b><br>Ballot Box"
 );
 
 addMarker(
     37.444369,
     -122.159922,
-    yellowIcon,
+    ballotIcon,
     "<b>Palo Alto City Hall</b><br>Ballot Box"
 );
 
 addMarker(
     37.435061,
     -122.155825,
-    yellowIcon,
+    ballotIcon,
     "<b>Palo Alto High School</b><br>Ballot Box"
 );
 
 addMarker(
     37.424303,
     -122.168892,
-    greenIcon,
+    postOfficeIcon,
     "<b>Stanford Post Office</b><br>Post Office"
 );
 
 addMarker(
     37.445844,
     -122.159239,
-    greenIcon,
+    postOfficeIcon,
     "<b>Palo Alto Post Office</b><br>Post Office"
 );
 
 addMarker(
     37.428647,
     -122.143928,
-    greenIcon,
+    postOfficeIcon,
     "<b>California Avenue Post Office</b><br>Post Office"
 );
 
 addMarker(
     37.429125,
     -122.169039,
-    blueIcon,
+    mailboxIcon,
     "<b>USPS @ The Oval</b><br>USPS Blue Box"
 );
 
 addMarker(
     37.426492,
     -122.150878,
-    blueIcon,
+    mailboxIcon,
     "<b>USPS @ EVGR</b><br>USPS Blue Box"
 );
 
 addMarker(
     37.424303,
     -122.170842,
-    redIcon,
+    votingCenterIcon,
     "<b>Tresidder Voting Center</b><br>Oak Lounge (2nd Floor)"
 );
 
 addMarker(
     37.423453,
     -122.158500,
-    redIcon,
+    votingCenterIcon,
     "<b>EVGR Voting Center</b><br>Graduate Student Community Center<br>Havana Room"
 );
 
 const group = L.featureGroup(markers);
+
+const legend = L.control({ position: 'bottomleft' });
+
+legend.onAdd = function () {
+    const div = L.DomUtil.create('div', 'info legend');
+
+    div.style.background = 'white';
+    div.style.padding = '10px';
+    div.style.borderRadius = '8px';
+    div.style.boxShadow = '0 2px 6px rgba(0,0,0,0.2)';
+    div.style.font = '14px Arial';
+
+    div.innerHTML = `
+        <b>Legend</b><br><br>
+        <i class="fa fa-check" style="color:#f4b400;"></i> Ballot Box<br>
+        <i class="fa fa-envelope" style="color:#2e7d32;"></i> Post Office<br>
+        <i class="fa fa-inbox" style="color:#1976d2;"></i> USPS Blue Box<br>
+        <i class="fa fa-building" style="color:#c62828;"></i> Voting Center
+    `;
+
+    return div;
+};
+
+legend.addTo(map);
+    
 map.fitBounds(group.getBounds(), {
     padding: [50, 50]
 });
