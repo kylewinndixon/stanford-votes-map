@@ -45,13 +45,40 @@
         .view-map-button:hover {
             background: #f5f5f5;
         }
+
+        .leaflet-div-icon {
+            background: transparent;
+            border: none;
+        }
+        
+        .custom-marker {
+            width: 34px;
+            height: 34px;
+        
+            border-radius: 50%;
+        
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        
+            color: white;
+        
+            font-size: 15px;
+        
+            box-shadow: 0 3px 10px rgba(31,36,48,.22);
+        
+            border: 3px solid white;
+        
+            transition: transform .15s ease;
+        }
+        
+        .custom-marker:hover{
+            transform: scale(1.12);
+        }
         
     </style>
 
     <b style="font-family:Avenir;">Legend</b>
-   
-    <link rel="stylesheet"
-        href="css/leaflet.awesome-markers.css">
     
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -70,8 +97,6 @@
 <div id="map"></div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<script src="js/leaflet.awesome-markers.js"></script>
     
 <script>
 
@@ -139,75 +164,99 @@ function addMarker(lat, lng, icon, popupHTML) {
 
     markers.push(marker);
 }
+    
+function popup(title, subtitle) {
+    return `
+        <div style="
+            font-family:Avenir,'Avenir Next',Helvetica,Arial,sans-serif;
+            line-height:1.4;
+        ">
+            <div style="
+                font-weight:600;
+                font-size:15px;
+                color:#1F2430;
+            ">
+                ${title}
+            </div>
 
+            <div style="
+                font-weight:300;
+                font-size:13px;
+                color:#555;
+            ">
+                ${subtitle}
+            </div>
+        </div>
+    `;
+}
 addMarker(
     37.433425,
     -122.176911,
     ballotIcon,
-    "<b>Stanford Hospital</b><br>Ballot Box"
+    popup("Stanford Hospital", "Ballot Box")
 );
 
 addMarker(
     37.444369,
     -122.159922,
     ballotIcon,
-    "<b>Palo Alto City Hall</b><br>Ballot Box"
+    popup("Palo Alto City Hall", "Ballot Box")
 );
 
 addMarker(
     37.435061,
     -122.155825,
     ballotIcon,
-    "<b>Palo Alto High School</b><br>Ballot Box"
+    popup("Palo Alto High School", "Ballot Box")
 );
 
 addMarker(
     37.424303,
     -122.168892,
     postOfficeIcon,
-    "<b>Stanford Post Office</b><br>Post Office"
+    popup("Stanford Post Office", "Post Office")
 );
 
 addMarker(
     37.445844,
     -122.159239,
     postOfficeIcon,
-    "<b>Palo Alto Post Office</b><br>Post Office"
+    popup("Palo Alto Post Office","Post Office")
 );
 
 addMarker(
     37.428647,
     -122.143928,
     postOfficeIcon,
-    "<b>California Avenue Post Office</b><br>Post Office"
+    popup("California Avenue Post Office","Post Office")
 );
 
 addMarker(
     37.429125,
     -122.169039,
     mailboxIcon,
-    "<b>USPS @ The Oval</b><br>USPS Blue Box"
+    popup("USPS @ The Oval","USPS Blue Box")
 );
 
 addMarker(
     37.426492,
     -122.150878,
     mailboxIcon,
-    "<b>USPS @ EVGR</b><br>USPS Blue Box"
+    popup("USPS @ EVGR","USPS Blue Box")
 );
 
 addMarker(
     37.424303,
     -122.170842,
     votingCenterIcon,
-    "<b>Tresidder Voting Center</b><br>Oak Lounge (2nd Floor)"
+    popup("Tresidder Voting Center", "Oak Lounge (2nd Floor)")
 );
 
 addMarker(
     37.423453,
     -122.158500,
     votingCenterIcon,
-    "<b>EVGR Voting Center</b><br>Graduate Student Community Center<br>Havana Room"
+    popup("EVGR Voting Center", "Graduate Student Community Center<br>Havana Room")
 );
 
 const group = L.featureGroup(markers);
