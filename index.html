@@ -32,10 +32,8 @@
 
 <script>
 
-// Create the map
 const map = L.map('map');
 
-// OpenStreetMap background
 L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
@@ -44,7 +42,6 @@ L.tileLayer(
     }
 ).addTo(map);
 
-// Red marker icon
 const redIcon = new L.Icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
@@ -55,45 +52,38 @@ const redIcon = new L.Icon({
     shadowSize: [41,41]
 });
 
-// Store markers so Leaflet can zoom to all of them
 const markers = [];
 
-// Stanford Hospital
 markers.push(
     L.marker([37.433425, -122.176911], {icon: redIcon})
     .addTo(map)
     .bindPopup("<b>Stanford Hospital</b>")
 );
 
-// Palo Alto High School
 markers.push(
     L.marker([37.435061, -122.155825], {icon: redIcon})
     .addTo(map)
     .bindPopup("<b>Palo Alto High School</b>")
 );
 
-// Palo Alto City Hall
 markers.push(
     L.marker([37.444369, -122.159922], {icon: redIcon})
     .addTo(map)
     .bindPopup("<b>Palo Alto City Hall</b>")
 );
 
-// Rinconada Library
 markers.push(
     L.marker([37.445003, -122.138958], {icon: redIcon})
     .addTo(map)
     .bindPopup("<b>Rinconada Library</b>")
 );
 
-// Mitchell Park Library
 markers.push(
     L.marker([37.422203, -122.112833], {icon: redIcon})
     .addTo(map)
     .bindPopup("<b>Mitchell Park Library</b>")
 );
 
-// Zoom to include all markers
 const group = L.featureGroup(markers);
 map.fitBounds(group.getBounds(), {
     padding: [50, 50]
