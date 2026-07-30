@@ -98,8 +98,6 @@
         }
         
     </style>
-
-    <b style="font-family:Avenir;">Legend</b>
     
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -293,7 +291,7 @@ const legend = L.control({ position: 'bottomleft' });
 legend.onAdd = function () {
     const div = L.DomUtil.create('div', 'info legend');
 
-    div.style.background = '#ECE6D6';
+    div.style.background = 'rgba(236,230,214,.92)';
     div.style.padding = '14px';
     div.style.border = '1px solid #D7CFBE';
     div.style.borderRadius = '12px';
